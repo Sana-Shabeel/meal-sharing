@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const knex = require("../database");
-
+console.log;
 // Validating data received from user
 const mealsColumns = new Set([
   "title",
@@ -43,27 +43,25 @@ function isValidData(data) {
     console.log(error);
   }
 }
-
-// GET route all meals route
 router.get("/", async (req, res) => {
-  const meals = await knex("meal").select();
+  const meals = await getMeals(req.query);
+  res.json(meals);
+});
 
-  if (req.query.maxPrice && req.query.limit) {
-    const limitedPrice = await knex("meal")
-      .where("price", "<", req.query.maxPrice)
-      .limit(req.query.limit);
-    return res.json(limitedPrice);
+function getMeals(query) {
+  const meals = knex("meal");
+  if ("limit" in query) {
+    meals.limit(query.limit);
+  }
+  if ("maxPrice" in query) {
+    meals.where("price", "<", query.maxPrice);
+  }
+  if ("title" in query) {
+    meals.where("title", "like", `%${query.title}%`);
   }
 
-  if ("maxPrice" in req.query) {
-    const maxPrice = await knex("meal")
-      .select()
-      .where("price", "<", req.query.maxPrice);
-    return res.json(maxPrice);
-  }
-
-  if ("availableReservations" in req.query) {
-    const getMeals = await knex("meal")
+  if ("availableReservations" in query) {
+    meals
       .join("reservations", "meal.id", "reservations.meal_id")
       .select(
         "meal.id",
@@ -78,43 +76,12 @@ router.get("/", async (req, res) => {
       )
       .where("max_reservation", ">", "number_of_guests")
       .groupBy("meal_id");
-    const availableMeals = getMeals.filter(
-      (meal) => meal.max_reservation > meal.sum
-    );
-    return res.json(availableMeals);
   }
-
-  if ("title" in req.query) {
-    const likeTitle = await knex("meal").where(
-      "title",
-      "like",
-      `%${req.query.title}%`
-    );
-    if (likeTitle.length === 0) {
-      return res.status(404).json({ Error: "No meal found matching title" });
-    }
-    return res.json(likeTitle);
+  if ("createdAfter" in query) {
+    meals.where("created", ">", query.createdAfter);
   }
-
-  if ("createdAfter" in req.query) {
-    const createdAfter = await knex("meal").where(
-      "created",
-      ">",
-      req.query.createdAfter
-    );
-    if (createdAfter.length === 0) {
-      return res.status(404).json({ Error: "No meal found matching title" });
-    }
-    return res.json(createdAfter);
-  }
-  if ("limit" in req.query) {
-    const limit = await knex("meal").limit(req.query.limit);
-    return res.json(limit);
-  }
-
-  res.json(meals);
-});
-
+  return meals.select();
+}
 // CREATE meal route
 router.post("/", async (req, res) => {
   const validData = isValidData(req.body);
