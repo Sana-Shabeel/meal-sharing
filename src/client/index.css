@@ -1,19 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
-@import 'theme.css';
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import "theme.css";
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
-}
-
-#root {
-  padding-left: 30%;
-  padding-right: 30%;
-  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-size: 17px;
+  background: #f7f5f2;
 }
 
 ul {
@@ -35,18 +30,4 @@ button {
   color: rgb(255, 255, 255);
   padding: 5px;
   font-size: 17px;
-}
-
-@media screen and (max-width: 1400px) {
-  #root {
-    padding-left: 30%;
-    padding-right: 30%;
-  }
-}
-
-@media screen and (max-width: 750px) {
-  #root {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }
