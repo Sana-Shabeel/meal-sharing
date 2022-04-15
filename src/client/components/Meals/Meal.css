@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap");
+
+.meal-container {
+  background: #dad9d8;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+}
+.meal-container:hover {
+  box-shadow: 2px 5px 5px 4px #c8c8c862;
+}
+.meal-city {
+  width: fit-content;
+  padding: 0 5px;
+  text-align: center;
+  position: relative;
+  top: -15%;
+  left: 30%;
+  right: 30%;
+  background: #f7f5f2;
+  border-radius: 10px;
+}
+.meal-title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.meal-description {
+  font-style: italic;
+}
+.meal-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.meal-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/*   ALL THE MEALS  */
+.top-meals-title {
+  margin-top: 16%;
+}
+.meals-container {
+  max-width: 1140px;
+  width: 100%;
+  margin: 3% auto 0;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.menu {
+  margin-top: 2rem;
+}
+
+@media only screen and (max-width: 1199px) {
+  .top-meals-title {
+    margin-top: 5%;
+  }
+  .meals-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin: 1rem auto 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .meals-container {
+    margin-top: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}

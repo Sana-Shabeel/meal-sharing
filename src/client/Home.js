@@ -1,7 +1,9 @@
 import React from "react";
-import Navbar from "./components/Navbar/Navbar";
 import HeroImage from "./components/HeroImage";
 import About from "./components/About/About";
+import Meals from "./components/Meals/TopMeals";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import "./Home.css";
 function Home() {
   return (
@@ -9,6 +11,8 @@ function Home() {
       <Navbar />
       <HeroImage />
       <About />
+      <Meals />
+      <Footer />
     </div>
   );
 }

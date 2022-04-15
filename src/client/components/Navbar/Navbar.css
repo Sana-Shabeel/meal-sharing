@@ -7,7 +7,7 @@ nav {
   background: #3a3845;
   height: 8vh;
   color: #f7e2e2;
-  padding: 0 1.2rem;
+  padding: 0 2.5rem;
 }
 h2 {
   font-weight: 900;
@@ -25,15 +25,15 @@ h2 {
 .navlist {
   display: flex;
   justify-content: space-around;
-  gap: 10px;
+  gap: 1.5rem;
 }
 .navlist li {
   font-weight: 700;
   font-size: 1.2rem;
 }
 .navlist li:hover {
-  color: #cc9d9d;
   cursor: pointer;
+  color: #cc9d9d;
 }
 
 @media screen and (max-width: 608px) {

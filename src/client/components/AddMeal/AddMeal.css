@@ -1,0 +1,17 @@
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+.flex {
+  display: flex;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+}
+textarea {
+  width: min(100% - 2rem, 740px);
+  padding: 10px;
+}

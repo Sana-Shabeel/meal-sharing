@@ -13,7 +13,7 @@
   border-radius: 5px;
   z-index: 99;
   position: absolute;
-  top: 30rem;
+  top: 25rem;
 }
 p {
   line-height: 1.4;
@@ -24,10 +24,23 @@ h1 {
   text-align: center;
   margin: 10px 0;
 }
+@media only screen and (max-width: 1199px) {
+  .about {
+    position: relative;
+    top: 0;
+  }
+}
+@media screen and (max-width: 1098px) {
+  .about {
+    position: relative;
+    top: 0;
+  }
+}
 @media screen and (max-width: 640px) {
   .about {
     border-radius: 0;
     position: relative;
     top: 0;
+    padding: 8px;
   }
 }
