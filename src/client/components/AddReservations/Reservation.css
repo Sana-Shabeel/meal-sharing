@@ -1,0 +1,38 @@
+form {
+  width: min(100% - 2rem, 740px);
+  margin-inline: auto;
+  margin-top: 3rem;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+input {
+  width: 60%;
+  min-height: 5vh;
+  margin: 10px 0;
+  padding-left: 10px;
+  border: 2px solid #5e5079;
+  border-radius: 4px;
+}
+
+.btn {
+  display: block;
+  background-color: #3e99c0;
+  border-radius: 8px;
+  border-width: 0px;
+  color: rgb(255, 255, 255);
+  padding: 12px;
+  font-size: 17px;
+  margin-top: 1rem;
+  margin-inline: auto;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #69b5d6;
+}
+
+/*  FOR THE MODAL */

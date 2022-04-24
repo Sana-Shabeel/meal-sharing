@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const knex = require("../database");
-console.log;
 // Validating data received from user
 const mealsColumns = new Set([
   "title",
@@ -22,20 +21,11 @@ function isValidData(data) {
         validData[key] = data[key];
       }
     }
-    if ("price" in validData) {
-      if (typeof validData.price !== "number") {
-        throw new Error();
-      }
-    }
-    if ("max_reservation" in validData) {
-      if (typeof validData.max_reservation !== "number") {
-        throw new Error();
-      }
-    }
+
     if ("when" in validData) {
       const parsedDate = new Date(validData.when);
       if (isNaN(parsedDate)) {
-        throw new Error();
+        validData["Error"] = "Error";
       }
     }
     return validData;
@@ -43,6 +33,7 @@ function isValidData(data) {
     console.log(error);
   }
 }
+
 router.get("/", async (req, res) => {
   const meals = await getMeals(req.query);
   res.json(meals);
@@ -50,6 +41,7 @@ router.get("/", async (req, res) => {
 
 function getMeals(query) {
   const meals = knex("meal");
+
   if ("limit" in query) {
     meals.limit(query.limit);
   }
@@ -58,6 +50,21 @@ function getMeals(query) {
   }
   if ("title" in query) {
     meals.where("title", "like", `%${query.title}%`);
+  }
+  if ("stars" in query) {
+    meals
+      .join("review", "meal.id", "review.meal_id")
+      .distinct()
+      .select(
+        "meal.id",
+        "meal.title",
+        "meal.description",
+        "location",
+        "when",
+        "created",
+        "price",
+        "stars"
+      );
   }
 
   if ("availableReservations" in query) {
@@ -82,6 +89,7 @@ function getMeals(query) {
   }
   return meals.select();
 }
+
 // CREATE meal route
 router.post("/", async (req, res) => {
   const validData = isValidData(req.body);
@@ -90,7 +98,7 @@ router.post("/", async (req, res) => {
       status: "failed",
       Error: "No valid data was provided.",
       message: {
-        date: "make sure the dates match this format (YYYY-MM-DD HH:MM:SS)",
+        date: "make sure the dates match this format (YYYY-MM-DD)",
         price:
           "price and max_reservation are supposed to be integers, not strings",
       },
@@ -121,12 +129,13 @@ router.put("/:id", async (req, res) => {
   const validData = isValidData(req.body);
   // Check if id is included
   const checkedId = await knex("meal").where({ id: req.params.id });
-  if (Object.keys(validData).length === 0) {
+
+  if ("Error" in validData) {
     return res.status(400).json({
       status: "failed",
       Error: "No valid data was provided.",
       message: {
-        date: "make sure the dates match this format (YYYY-MM-DD HH:MM:SS)",
+        date: "make sure the dates match this format (YYYY-MM-DD)",
         price:
           "price and max_reservation are supposed to be integers, not strings",
       },
@@ -146,7 +155,7 @@ router.put("/:id", async (req, res) => {
   res.status(201).json({
     status: "succes",
     message: "Updated",
-    updated: updateMeal,
+    updated: "updateMeal",
   });
 });
 

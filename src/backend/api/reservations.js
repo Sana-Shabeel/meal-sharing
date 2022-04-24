@@ -15,11 +15,14 @@ function isValidData(data) {
   for (const key in data) {
     if (reservationsColumns.has(key)) {
       validData[key] = data[key];
-    } else {
-      validData["Error"] = "Error";
     }
   }
-
+  if ("number_of_guests" in validData) {
+    if (typeof validData.number_of_guests !== "number") {
+      validData["Error"] = "Error";
+      console.log("yes there is error");
+    }
+  }
   return validData;
 }
 
@@ -33,6 +36,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   const validData = isValidData(req.body);
   if ("Error" in validData) {
+    console.log("Error");
     return res.status(400).json({
       status: "failed",
       Error: "No valid data was provided.",
@@ -49,10 +53,10 @@ router.post("/", async (req, res) => {
       },
     });
   }
+
   const created = await knex("reservations").insert(validData);
   res.status(201).json({
     status: "success",
-    message: `Created ${created}`,
   });
 });
 
