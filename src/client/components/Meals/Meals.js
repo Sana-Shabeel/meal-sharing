@@ -7,7 +7,7 @@ import "./Meal.css";
 function Menu() {
   const [menu, setMenu] = useState({ originalMenu: [], filteredMenu: [] });
   useEffect(() => {
-    fetch("http://localhost:8000/api/meals")
+    fetch("/api/meals")
       .then((response) => response.json())
       .then((data) => {
         setMenu({ originalMenu: data, filteredMenu: data });

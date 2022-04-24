@@ -12,7 +12,7 @@ export default function PostMeal() {
 
   const postData = (meal) => {
     console.log(meal);
-    fetch("http://localhost:8000/api/meals", {
+    fetch("api/meals", {
       method: "POST",
       headers: {
         "content-type": "application/json",

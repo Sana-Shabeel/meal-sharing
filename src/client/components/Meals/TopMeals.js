@@ -5,7 +5,7 @@ import "./Meal.css";
 function Meals() {
   const [menu, setMenu] = useState({ originalMenu: [], filteredMenu: [] });
   useEffect(() => {
-    fetch("http://localhost:8000/api/meals?limit=6&stars")
+    fetch("api/meals?limit=6&stars")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
