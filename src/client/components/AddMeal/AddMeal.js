@@ -65,7 +65,7 @@ function AddMeal({ postMeal }) {
         </div>
         <div className="submit-form">
           <button type="submit" className="btn " onClick={submitHandler}>
-            Add Reservation
+            Add Meal
           </button>
         </div>
       </form>
